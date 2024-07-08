@@ -26,7 +26,7 @@ const NavBar = () => {
             <span className='text-2xl cursor-pointer'><IoIosNotificationsOutline/></span>
             <span className='text-2xl cursor-pointer'><CiSettings/></span>
             <Avatar src={<img src={profile2} alt="avatar" />} />
-            <span className='text-xl'>Sunny S</span>
+            <span className='text-xl'>Sunny</span>
         </ul>
       </div>
 

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.deep-gray-header .ant-table-thead > tr > th {
+    @apply bg-zinc-300  text-zinc-700; /* Apply Tailwind classes */
+  }
+  .required-label::after {
+    content: ' *';
+    color: red;
+  }

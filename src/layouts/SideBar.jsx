@@ -15,14 +15,13 @@ const Sidebar = () => {
   const menus = [
     { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
     { name: "User", link: "/", icon: AiOutlineUser },
-    { name: "Messages", link: "/", icon: FiMessageSquare, 
-      submenu:true, submenuItems:[
+    { name: "Gift Card", link: "/", icon: FiMessageSquare, 
+      submenu:true, 
+      submenuItems:[
         {
-          name:"user Message",
+          name:"Steam",
+          link :"/giftCard/steam"
         },
-        {
-          name:"user Message 2",
-        }
       ] },
     { name: "Analytics", link: "/", icon: TbReportAnalytics, margin: true },
     { name: "File Manager", link: "/", icon: FiFolder },
@@ -49,7 +48,8 @@ const Sidebar = () => {
           menus.map((item, index)=>{
             return(
              <>
-              <li 
+              <Link
+              to={item.link} 
               key={index} 
               className={`flex items-center gap-x-4 
                 text-base text-gray-300 cursor-pointer p-2 hover:bg-blue-900 rounded-md
@@ -61,7 +61,7 @@ const Sidebar = () => {
                 {
                   item?.submenu && open && <MdOutlineKeyboardArrowDown className={`text-xl ${subMenuOpen && "rotate-180"}`} onClick={()=>setSubMenuOpen(!subMenuOpen)}/>
                 }
-              </li>
+              </Link>
 
                 {
                   item?.submenu && subMenuOpen && open && (
@@ -70,11 +70,13 @@ const Sidebar = () => {
                         item?.submenuItems.map((item, index)=>{
                           return(
                             <Link
+                              key={index}
+                              to={item?.link}
                               className={`flex items-center gap-x-4 
                               text-sm text-gray-300 ml-4 cursor-pointer p-2 hover:bg-blue-900 rounded-md
                                duration-300
                               `}
-                             key={index}>
+                             >
                                <span className="duration-500">{item?.name}</span>
                             </Link>
                           )
