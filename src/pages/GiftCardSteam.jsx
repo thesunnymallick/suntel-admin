@@ -6,8 +6,10 @@ import netflixImge from "../assets/netflixBg.jpg"
 import { MdOutlineOutlinedFlag } from "react-icons/md";
 import { ImCopy } from "react-icons/im";
 import { BsCart3 } from "react-icons/bs";
+import { useParams } from "react-router-dom";
 
 const GiftCardSteam = () => {
+  const {id}=useParams();
   const dataSource = [
     {
       key: "1",
@@ -79,7 +81,7 @@ const GiftCardSteam = () => {
 
         <div className="px-6">
           <div className="pt-6">
-            <h2 className="text-zinc-800 font-medium text-xl">Steam 5 USD</h2>
+            <h2 className="text-zinc-800 font-medium text-xl">{id}</h2>
 
             <div className="flex gap-6 pt-10">
               <div className="flex-2">

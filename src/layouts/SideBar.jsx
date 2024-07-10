@@ -4,14 +4,18 @@ import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
-
+import { FiLogOut } from "react-icons/fi";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-
+import {useDispatch} from "react-redux"
+import {addLogout} from "../feature/addLoginSlice"
+import { FaBoxOpen } from "react-icons/fa";
 
 const Sidebar = () => {
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
   const menus = [
     { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
     { name: "User", link: "/", icon: AiOutlineUser },
@@ -20,17 +24,27 @@ const Sidebar = () => {
       submenuItems:[
         {
           name:"Steam",
-          link :"/giftCard/steam"
+          link :"/"
         },
       ] },
+    { name: "Products", link:"/products",  icon: FaBoxOpen  },
     { name: "Analytics", link: "/", icon: TbReportAnalytics, margin: true },
     { name: "File Manager", link: "/", icon: FiFolder },
     { name: "Cart", link: "/", icon: FiShoppingCart },
     { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
     { name: "Setting", link: "/", icon: RiSettings4Line },
+    { name: "Logout",  icon: FiLogOut },
   ];
   const [open, setOpen] = useState(true);
   const [subMenuOpen, setSubMenuOpen]=useState(false)
+
+  const logoutHandel=(name)=>{
+    if(name==="Logout"){
+       dispatch(addLogout())
+       navigate("/logout")
+    }
+
+  }
   return (
    <div  
     className={`bg-blue-800 duration-300  bg-gradient-to-b from-blue-950 h-screen sticky top-0 p-5 pt-8 ${open===true? "w-60" :"w-20"} `} >
@@ -49,9 +63,10 @@ const Sidebar = () => {
             return(
              <>
               <Link
-              to={item.link} 
-              key={index} 
-              className={`flex items-center gap-x-4 
+               to={item.link} 
+               key={index} 
+               onClick={()=>logoutHandel(item?.name)}
+               className={`flex items-center gap-x-4 
                 text-base text-gray-300 cursor-pointer p-2 hover:bg-blue-900 rounded-md
                  ${item?.margin===true? "mt-9" : "mt-2"}
                 `}
@@ -70,7 +85,7 @@ const Sidebar = () => {
                         item?.submenuItems.map((item, index)=>{
                           return(
                             <Link
-                              key={index}
+                              key={item?.name}
                               to={item?.link}
                               className={`flex items-center gap-x-4 
                               text-sm text-gray-300 ml-4 cursor-pointer p-2 hover:bg-blue-900 rounded-md

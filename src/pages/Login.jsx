@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Input, message } from "antd";
+import React, { useState }  from "react";
+import { Button, Input, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { FaRegUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -11,11 +11,14 @@ import * as Yup from "yup";
 import apiService from "../utils/apiService";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addLogin } from "../feature/addLoginSlice";
 // Define the validation schema
 const loginSchema = Yup.object({
   email: Yup.string().email("Invalid email address").required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
+
 const Login = () => {
   // Login data
   const loginData={
@@ -23,24 +26,26 @@ const Login = () => {
     password :"",
   }
 
-  const [loginInfo, setLoginInfo]=useState(null);
   const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const [loading, setLoading]=useState(false);
 
 
+    // Login handel
     const loginHandel=async(formData)=>{
     try {
+      setLoading(true)
       const {data, status}= await apiService.post(`/api/v1/seller/login`, formData);
-      console.log(data, status);
-
       if(status===200){
+        setLoading(false)
         Cookies.set("token", data?.token);
-        setLoginInfo(data?.customer);
+        dispatch(addLogin(data));
         message.success("Login successfull!");
         navigate('/');
-
       }
 
     } catch (error) {
+      setLoading(false);
       console.log(error)
     }
     }
@@ -130,13 +135,17 @@ const Login = () => {
             </div>
 
 
-            <spna className="text-blue-500 text-sm cursor-pointer float-right font-semibold py-1" >forgot password?</spna>
+            <span className="text-blue-500 text-sm cursor-pointer float-right font-semibold py-1" >forgot password?</span>
 
-            <button className="w-[50%] h-10 bg-blue-500 text-white rounded-sm flex 
-            justify-center items-center gap-2 mt-5 hover:bg-blue-600 transition-all">
-              <span>Login</span>
-              <span><FiLogIn/></span>
-            </button>
+           <Button
+           loading={loading} 
+           className="mt-4" 
+           type="primary"  
+           htmlType="submit" 
+           icon={<FiLogIn/>} 
+           size="large">
+             Login
+          </Button>
           </form>
         </div>
 
