@@ -5,22 +5,24 @@ import GiftCardSteam from "./pages/GiftCardSteam";
 import Login from "./pages/Login";
 import ProtectedRoute from "./config/ProtectedRoute";
 import AllProducts from "./pages/AllProducts";
+import { useSelector } from "react-redux";
 const App = () => {
+  const {authInfo}=useSelector((state)=>state.login);
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+
               <Dashboard />
-            </ProtectedRoute>
+         
           }
         />
         <Route
           path="/giftCard/steam/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute authInfo={authInfo}>
               <GiftCardSteam />
             </ProtectedRoute>
           }
@@ -29,7 +31,7 @@ const App = () => {
         <Route
           path="/products"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute authInfo={authInfo}>
               <AllProducts/>
             </ProtectedRoute>
           }

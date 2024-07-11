@@ -70,9 +70,9 @@ const Login = () => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center bg-gray-50">
-      <div className=" bg-white flex gap-8 w-[70%] rounded-md shadow-sm">
+      <div className=" bg-white flex gap-8 w-[90%] lg:w-[70%] rounded-md shadow-sm">
 
-        <div className="w-[60%] flex justify-center bg-zinc-100">
+        <div className=" hidden w-[60%] lg:flex justify-center bg-zinc-100">
           <img
             className="w-[90%] object-cover"
             src={loginBackground}
@@ -80,7 +80,7 @@ const Login = () => {
           />
         </div>
 
-        <div className="w-[40%] bg-white">
+        <div className="w-[100%] lg:w-[40%] bg-white pb-6 lg:pb-2">
           <div className="flex justify-center py-6">
             <img className="w-40" src={logo} alt="" />
           </div>
@@ -135,7 +135,7 @@ const Login = () => {
             </div>
 
 
-            <span className="text-blue-500 text-sm cursor-pointer float-right font-semibold py-1" >forgot password?</span>
+          <span className="text-blue-500 text-sm cursor-pointer float-right font-semibold py-1" >forgot password?</span>
 
            <Button
            loading={loading} 

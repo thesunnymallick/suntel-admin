@@ -26,38 +26,50 @@ const GiftCardSteam = () => {
     {
       title: "Region",
       dataIndex: "region",
-      key: "",
+      key: "region",
+      width :100,
+     
     },
     {
       title: "in Stock",
       dataIndex: "inStock",
-      key: "",
+      key: "inStock",
+      width :100,
+   
     },
     {
       title: "Price",
       dataIndex: "price",
-      key: "",
+      key: "price",
+      width :100,
+
     },
     {
         title: "Quantity",
         dataIndex: "quantity",
+        key:"quantity",
+        width:200,
         render:()=>{
           return  <Input
           size="large"
           value={1}
           style={{width:"30%", }}
         />
-        }
+        },
+     
     },
     {
         title: "Total Price",
         dataIndex: "totalPrice",
-        key: "",
+        key: "totalPrice",
+        width :100,
+      
     },
     {
       title: "Action",
-      dataIndex: "",
-      key: "",
+      dataIndex: "Action",
+      key: "Action",
+      width :250,
       render:()=>{
         return (
           <button className="w-[80%] h-10 bg-blue-500 rounded-md shadow-sm text-white flex justify-center items-center gap-2">
@@ -65,7 +77,8 @@ const GiftCardSteam = () => {
             <spna>Add To Cart</spna>
           </button>
         )
-      }
+      },
+   
   },
   ];
 
@@ -74,19 +87,20 @@ const GiftCardSteam = () => {
   const IMG=netflixImge
 
   return (
-    <section className="flex gap-6 bg-zinc-50">
+    <section className="flex gap-6 bg-zinc-50 overflow-hidden">
       <Sidebar />
       <div className="flex-1 ">
         <NavBar />
 
-        <div className="px-6">
+        <div className="px-6 overflow-hidden py-4">
           <div className="pt-6">
             <h2 className="text-zinc-800 font-medium text-xl">{id}</h2>
 
-            <div className="flex gap-6 pt-10">
-              <div className="flex-2">
+            <div className=" flex flex-col lg:flex-row  gap-2 pt-10">
+
+              <div className="w-[100%] lg:w-[20%]">
               
-                 <div className="flex items-center justify-center gap-x-1
+                 <div className="flex items-center gap-x-1
                   text-zinc-800 text-lg font-semibold pb-1">
                   <MdOutlineOutlinedFlag/>
                   <span>Redeeemable in: us</span>
@@ -115,7 +129,7 @@ const GiftCardSteam = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-4">
+                <div className="flex items-center justify-start gap-8 lg:justify-between pt-4">
                   <div className="flex flex-col text-zinc-700 text-sm">
                    
                     <span className="">Product identifer: </span>
@@ -128,11 +142,17 @@ const GiftCardSteam = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex-1 pt-4">
-                <Table dataSource={dataSource}  
+
+              <div className="w-[350px] 
+                lg:w-[80%] pt-4 overflow-x-auto">
+                <div className="">
+                <Table 
+                 dataSource={dataSource}  
                  columns={columns} pagination={false}  
                  className="deep-gray-header"
+                 scroll={{ x: 'max-content' }}
                 />
+                </div>
               </div>
             </div>
           </div>
