@@ -1,13 +1,13 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../layouts/SideBar";
 import NavBar from "../layouts/NavBar";
 import CardItem from "../components/dashboardCom/CardItem";
-// import { data as cardData, data2 as cardData2 } from "../utils/cardData";
+
 import netflixImge from "../assets/netflixBg.jpg";
 import CardLoading from "../ShimmerLoading/CardLoading";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts } from "../feature/productsSlice";
-const Dashboard = () => {
+const General = () => {
   const dispatch=useDispatch();
   const {products, isLoading}=useSelector((state)=>state.products);
 
@@ -56,7 +56,7 @@ const Dashboard = () => {
 
               <div
                 className=" mt-2 
-             grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-2"
+                grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-2"
               >
                 {products?.products?.map((item) => {
                   return (
@@ -82,4 +82,6 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default General;
+
+

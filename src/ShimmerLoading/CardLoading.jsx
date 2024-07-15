@@ -1,5 +1,5 @@
 import React from "react";
-import { ShimmerThumbnail, ShimmerText } from "react-shimmer-effects";
+import { ShimmerThumbnail} from "react-shimmer-effects";
 const CardLoading = () => {
   return (
     <>

@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./config/ProtectedRoute";
 import AllProducts from "./pages/AllProducts";
 import { useSelector } from "react-redux";
+import General from "./pages/General";
+import WalletDetailsPage from "./pages/WalletDetailsPage";
 const App = () => {
   const {authInfo}=useSelector((state)=>state.login);
   return (
@@ -16,6 +18,14 @@ const App = () => {
           element={
 
               <Dashboard />
+         
+          }
+        />
+        <Route
+          path="/general"
+          element={
+
+              <General/>
          
           }
         />
@@ -36,6 +46,15 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+          <Route
+          path="/wallet-details"
+          element={
+            <ProtectedRoute authInfo={authInfo}>
+              <WalletDetailsPage/>
+            </ProtectedRoute>
+          }
+        />
+        /wallet-details
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>

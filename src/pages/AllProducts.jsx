@@ -4,7 +4,6 @@ import NavBar from "../layouts/NavBar";
 import CardItem from "../components/dashboardCom/CardItem";
 import netflixImge from "../assets/netflixBg.jpg";
 import { Button, Input, Modal, Select } from "antd";
-import { AudioOutlined } from "@ant-design/icons";
 import { FiSearch } from "react-icons/fi";
 import { CiFilter } from "react-icons/ci";
 

@@ -14,12 +14,14 @@ import { addLogout } from "../feature/addLoginSlice";
 import { FaBoxOpen } from "react-icons/fa";
 import MobileSidebar from "./MobileSidebar";
 import { closeSidebarMenu } from "../feature/menuHandelSlice";
+import { GrCatalog } from "react-icons/gr";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const menus = [
     { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
+    { name: "General", link: "/general", icon: GrCatalog },
     { name: "User", link: "/", icon: AiOutlineUser },
     {
       name: "Gift Card",

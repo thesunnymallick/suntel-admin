@@ -1,11 +1,13 @@
 
-import {configureStore} from "@reduxjs/toolkit"
-import loginReducer from "../feature/addLoginSlice"
-import menusReducer from "../feature/menuHandelSlice"
+import {configureStore} from "@reduxjs/toolkit";
+import loginReducer from "../feature/addLoginSlice";
+import menusReducer from "../feature/menuHandelSlice";
+import productsSlice from "../feature/productsSlice";
 const store =configureStore({
     reducer :{
      login:loginReducer,
-     menus:menusReducer
+     menus:menusReducer,
+     products:productsSlice,
     }
 })
 
