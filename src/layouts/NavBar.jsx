@@ -58,7 +58,8 @@ const NavBar = () => {
   return (
     <div
        className="py-4 w-full  flex items-center
-       justify-between fixed lg:sticky top-0 z-50 bg-zinc-50 px-6 lg:px-2 "
+       justify-between fixed lg:sticky top-0 z-40 bg-zinc-50 px-6 lg:px-2
+         "
     >
       <div className="hidden lg:block  w-[30%]">
         <Input
@@ -89,7 +90,7 @@ const NavBar = () => {
         )}
       </div>
 
-      <div
+      {/* <div
          onClick={()=>navigate("/wallet-details")}
         className="hidden  w-[12%] h-12 bg-white 
         rounded-3xl shadow-sm lg:flex items-center justify-center gap-2 cursor-pointer"
@@ -113,7 +114,7 @@ const NavBar = () => {
             </>
           )}
         </span>
-      </div>
+      </div> */}
 
       <div className="">
         <ul className="flex gap-4 items-center">

@@ -19,7 +19,7 @@ const Dashboard = () => {
   }, [dispatch, products])
 
   return (
-    <section className="flex gap-6 bg-zinc-50">
+    <section className="flex  bg-zinc-50">
       <Sidebar />
       <div className="flex-1 ">
         <NavBar />

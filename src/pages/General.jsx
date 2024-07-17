@@ -7,6 +7,7 @@ import netflixImge from "../assets/netflixBg.jpg";
 import CardLoading from "../ShimmerLoading/CardLoading";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts } from "../feature/productsSlice";
+import CatalogueHeader from "../layouts/CatalogueHeader";
 const General = () => {
   const dispatch=useDispatch();
   const {products, isLoading}=useSelector((state)=>state.products);
@@ -19,14 +20,15 @@ const General = () => {
   }, [dispatch, products])
 
   return (
-    <section className="flex gap-6 bg-zinc-50">
+    <section className="flex gap-0 bg-zinc-50">
       <Sidebar />
       <div className="flex-1 ">
         <NavBar />
+        <CatalogueHeader/>
 
         {isLoading !== true ? (
           <>
-            <div className="px-6">
+            <div className="px-6 mt-4">
               <h1 className="text-zinc-700 font-medium">
                 Newest product added
               </h1>
