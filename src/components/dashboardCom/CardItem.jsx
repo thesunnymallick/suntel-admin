@@ -9,7 +9,7 @@ const CardItem = ({
   return (
     <Link 
     to={`/giftCard/steam/${name}`}  
-    className='w-full rounded-md overflow-hidden relative cursor-pointer'>
+    className='w-36 h-40 rounded-md overflow-hidden relative cursor-pointer'>
     <img className='w-full rounded-md h-44 object-cover' src={img} alt={name} />
     <div className='absolute inset-0 
     bg-gradient-to-t from-blue-950  

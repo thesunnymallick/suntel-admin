@@ -56,7 +56,7 @@ const Sidebar = () => {
     { name: "Products", link: "/products", icon: FaBoxOpen },
     { name: "Analytics", link: "/", icon: TbReportAnalytics, margin: true },
     { name: "File Manager", link: "/", icon: FiFolder },
-    { name: "Cart", link: "/", icon: FiShoppingCart },
+    { name: "Cart", link: "/cart", icon: FiShoppingCart },
     { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
     { name: "Setting", link: "/", icon: RiSettings4Line },
   ];
@@ -94,21 +94,19 @@ const Sidebar = () => {
   return (
     <>
       <div
-        className={`bg-blue-800 duration-200 ease-in-out  bg-gradient-to-b
+        className={`bg-blue-800 duration-300 ease-in-out  bg-gradient-to-b overflow-y-hidden
         from-blue-950 h-screen hidden lg:block lg:sticky top-0  z-50 pt-2  ${
           open === true ? "w-60" : "w-20"
         } `}
       >
         <div className="px-5">
-          <li className="flex items-center  cursor-pointer gap-x-4   
-           duration-300 py-2">
-            <img
-              className="w-10 h-10 object-cover "
-              src={circleLogo}
-              alt=""
-            />
+          <li
+            className="flex items-center  cursor-pointer gap-x-4   
+           duration-300 py-2"
+          >
+            <img className="w-10 h-10 object-cover " src={circleLogo} alt="" />
             {open && (
-              <span className="text-white text-base font-bold duration-300">{`
+              <span className="text-white text-base font-bold duration-600">{`
                Suntel Telecom
                `}</span>
             )}
@@ -116,7 +114,6 @@ const Sidebar = () => {
         </div>
 
         <div className="w-full h-full relative ">
-
           <ul className="pb-0 px-5 ">
             <Scrollbars style={{ height: "65vh" }} autoHide>
               {menus.map((item, index) => {
@@ -172,65 +169,63 @@ const Sidebar = () => {
               })}
             </Scrollbars>
           </ul>
-
-          
         </div>
         <div
           className="border-t-[1px]
-          border-t-zinc-300 py-2 pb-4 px-5 sticky bottom-0 z-50 flex flex-col
+          border-t-zinc-300 py-2 pb-4 px-5 sticky bottom-0 z-50 flex flex-col 
            gap-2 "
-          >
-            <li className="flex items-center cursor-pointer  gap-2   duration-300 py-2 rounded-md">
-              <img
-                className="w-10 h-10 rounded-sm object-cover"
-                src={profile2}
-                alt=""
-              />
-              {open && (
-                <div className="flex flex-col gap-1">
-                  <span className="text-white text-base">{`
+        >
+          <li className="flex items-center cursor-pointer  gap-2   duration-300 py-2 rounded-md">
+            <img
+              className="w-10 h-10 rounded-sm object-cover"
+              src={profile2}
+              alt=""
+            />
+            {open && (
+              <div className="flex flex-col gap-1">
+                <span className="text-white text-base">{`
             ${authInfo?.authInfo?.first_name} ${authInfo?.authInfo?.last_name}
             `}</span>
-                  <span className="text-zinc-300 text-sm">
-                    {authInfo?.authInfo?.email}
-                  </span>
-                </div>
-              )}
-            </li>
-
-            <li
-            onClick={()=>navigate("/wallet-details")}
-              className={`flex items-center gap-x-4 
-              text-base text-gray-300 cursor-pointer p-2 hover:bg-blue-900 
-              rounded-md  duration-300 
-             `}
-            >
-              <span className="text-2xl block float-left duration-500">
-                <IoWalletOutline />
-              </span>
-              {open && (
-                <span className="text-base font-medium flex-1">
-                  {`${filterWallet?.currency_name || ""} ${
-                    filterWallet?.balance || ""
-                  }`}
+                <span className="text-zinc-300 text-sm">
+                  {authInfo?.authInfo?.email}
                 </span>
-              )}
-            </li>
+              </div>
+            )}
+          </li>
 
-            <li
-              onClick={logoutHandel}
-              className={`flex items-center gap-x-4 
+          <li
+            onClick={() => navigate("/wallet-details")}
+            className={`flex items-center gap-x-4 
               text-base text-gray-300 cursor-pointer p-2 hover:bg-blue-900 
               rounded-md  duration-300 
              `}
-            >
-              <span className="text-2xl block float-left duration-500">
-                <FiLogOut />
+          >
+            <span className="text-2xl block float-left duration-500">
+              <IoWalletOutline />
+            </span>
+            {open && (
+              <span className="text-base font-medium flex-1">
+                {`${filterWallet?.currency_name || ""} ${
+                  filterWallet?.balance || ""
+                }`}
               </span>
-              {open && (
-                <span className={`text-base font-medium flex-1 `}>Log out</span>
-              )}
-            </li>
+            )}
+          </li>
+
+          <li
+            onClick={logoutHandel}
+            className={`flex items-center gap-x-4 
+              text-base text-gray-300 cursor-pointer p-2 hover:bg-blue-900 
+              rounded-md  duration-300 
+             `}
+          >
+            <span className="text-2xl block float-left duration-500">
+              <FiLogOut />
+            </span>
+            {open && (
+              <span className={`text-base font-medium flex-1 `}>Log out</span>
+            )}
+          </li>
         </div>
 
         <span
@@ -247,7 +242,6 @@ const Sidebar = () => {
             } transition-transform duration-300 ease-in-out `}
           />
         </span>
-
       </div>
 
       {sidebarMobileMenu && (

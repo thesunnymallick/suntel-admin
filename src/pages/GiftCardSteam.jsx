@@ -1,69 +1,87 @@
 import React, { useState } from "react";
 import Sidebar from "../layouts/SideBar";
 import NavBar from "../layouts/NavBar";
-import { Avatar, Input, Table } from "antd";
+import { Avatar, Input, InputNumber, Table } from "antd";
 import netflixImge from "../assets/netflixBg.jpg";
 import { MdOutlineOutlinedFlag } from "react-icons/md";
 import { ImCopy } from "react-icons/im";
 import { BsCart3 } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { Scrollbars } from "rc-scrollbars";
+import { useDispatch, useSelector } from "react-redux";
+import { addMultipleToCart, addToCart, updateQuantity } from "../feature/cartSlice";
+import ReactCountryFlag from "react-country-flag";
 const GiftCardSteam = () => {
   const { id } = useParams();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const dataSource = [
+  const [rowProducts, setRowProducts]=useState([]);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+
+  const initialDataSource = [
     {
       key: "1",
       region: "US",
       inStock: 10,
-      price: "$100.00",
-      quantity: "",
-      totalPrice: "$100.OO",
+      price: 100.00,
+      quantity: 1,
+      totalPrice: 100.00,
     },
-
     {
       key: "2",
       region: "UK",
       inStock: 0,
-      price: "$100.00",
-      quantity: "",
-      totalPrice: "$100.OO",
+      price: 100.00,
+      quantity: 1,
+      totalPrice: 100.00,
     },
-
     {
       key: "3",
       region: "UK",
       inStock: 10,
-      price: "$100.00",
-      quantity: "",
-      totalPrice: "$100.OO",
+      price: 100.00,
+      quantity: 1,
+      totalPrice: 100.00,
     },
     {
       key: "4",
       region: "EU",
       inStock: 10,
-      price: "$100.00",
-      quantity: "",
-      totalPrice: "$100.OO",
+      price: 100.00,
+      quantity: 1,
+      totalPrice: 100.00,
     },
     {
       key: "5",
       region: "CA",
       inStock: 0,
-      price: "$100.00",
-      quantity: "",
-      totalPrice: "$100.OO",
+      price: 100.00,
+      quantity: 1,
+      totalPrice: 100.00,
     },
-
     {
       key: "6",
       region: "CA",
       inStock: 5,
-      price: "$100.00",
-      quantity: "",
-      totalPrice: "$100.OO",
+      price: 100.00,
+      quantity: 1,
+      totalPrice: 100.00,
     },
   ];
+
+  const [dataSource, setDataSource] = useState(initialDataSource);
+
+  const handleQuantityChange = (value, recordKey) => {
+    const newDataSource = dataSource.map((item) => {
+      if (item.key === recordKey) {
+        const newTotalPrice = (value * item.price).toFixed(2);
+        return { ...item, quantity: value, totalPrice: newTotalPrice };
+      }
+      return item;
+    });
+    setDataSource(newDataSource);
+  };
+
 
   const columns = [
     {
@@ -85,10 +103,58 @@ const GiftCardSteam = () => {
       key: "region",
       width: 100,
       filters: [
-        { text: "US", value: "US" },
-        { text: "UK", value: "UK" },
-        { text: "EU", value: "EU" },
-        { text: "CA", value: "CA" },
+        {
+          text: (
+            <>
+              <ReactCountryFlag
+                countryCode="US"
+                svg
+                style={{ width: "1.5em", height: "1.5em" }}
+              />{" "}
+              US
+            </>
+          ),
+          value: "US",
+        },
+        {
+          text: (
+            <>
+              <ReactCountryFlag
+                countryCode="GB"
+                svg
+                style={{ width: "1.5em", height: "1.5em" }}
+              />{" "}
+              UK
+            </>
+          ),
+          value: "UK",
+        },
+        {
+          text: (
+            <>
+              <ReactCountryFlag
+                countryCode="EU"
+                svg
+                style={{ width: "1.5em", height: "1.5em" }}
+              />{" "}
+              EU
+            </>
+          ),
+          value: "EU",
+        },
+        {
+          text: (
+            <>
+              <ReactCountryFlag
+                countryCode="CA"
+                svg
+                style={{ width: "1.5em", height: "1.5em" }}
+              />{" "}
+              CA
+            </>
+          ),
+          value: "CA",
+        },
       ],
       onFilter: (value, record) => record.region.includes(value),
     },
@@ -97,6 +163,11 @@ const GiftCardSteam = () => {
       dataIndex: "inStock",
       key: "inStock",
       width: 100,
+      render :(text, record)=>{
+         return(
+          record.inStock===0 ? <span className="text-red-600 text-sm font-semibold">out of stock</span> : record.inStock
+         )
+      },
       filters: [
         { text: "In Stock", value: "in" },
         { text: "Out of Stock", value: "out" },
@@ -112,11 +183,21 @@ const GiftCardSteam = () => {
     },
     {
       title: "Quantity",
-      dataIndex: "quantity",
       key: "quantity",
+
       width: 100,
-      render: () => {
-        return <Input size="large" value={1} style={{ width: "100%" }} />;
+      render: (text, record) => {
+        return (
+          <InputNumber
+            size="large"
+            value={record.inStock === 0 ? 0 : record.quantity}
+            min={1}
+            disabled={record.inStock===0 ?  true : false}
+            max={record.inStock}
+            style={{ width: "100%" }}
+            onChange={(value) => handleQuantityChange(value, record.key) }
+          />
+        );
       },
     },
     {
@@ -130,11 +211,28 @@ const GiftCardSteam = () => {
       dataIndex: "Action",
       key: "Action",
       width: 150,
-      render: () => {
-        return (
+      render: (text, record) => {
+        const isInCart = cartItems.some((item) => item.key === record.key);
+        return isInCart ? (
           <button
-            className="w-[98%] h-10 bg-blue-500 rounded-md 
+            onClick={() => console.log("Go to Cart")}
+            className="w-[98%] h-10 bg-blue-700 rounded-md 
             shadow-sm text-white flex justify-center items-center gap-2"
+          >
+            <span>
+              <BsCart3 />
+            </span>
+            <span>Go to Cart</span>
+          </button>
+        ) : (
+          <button
+            disabled={record.inStock===0 ?  true : false}
+            onClick={() => dispatch(addToCart(record))}
+            className={`
+              w-[98%] h-10 bg-blue-700 rounded-md 
+              shadow-sm text-white flex justify-center items-center gap-2
+              ${record.inStock===0 && "opacity-70 cursor-not-allowed"}
+              `}
           >
             <span>
               <BsCart3 />
@@ -150,14 +248,24 @@ const GiftCardSteam = () => {
   const PARA = "Download and play thousand of your favorite game";
   const IMG = netflixImge;
 
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+  const onSelectChange = (newSelectedRowKeys, value) => {
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys, value);
     setSelectedRowKeys(newSelectedRowKeys);
+    setRowProducts(value)
   };
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
+    getCheckboxProps: (record) => ({
+      disabled: record.inStock === 0 ||  cartItems.some((item) => item.key === record.key),
+    }),
   };
+
+  //  Add Multiple product 
+
+  const addMultipleProducts=()=>{
+     dispatch(addMultipleToCart(rowProducts))
+  }
 
   return (
     <section className="flex bg-zinc-50 overflow-hidden">
@@ -237,8 +345,9 @@ const GiftCardSteam = () => {
 
                       {selectedRowKeys.length !== 0 && (
                         <button
+                         onClick={addMultipleProducts}
                           className="w-[30%] h-10 border-[1px] border-blue-500 bg-blue-50  rounded-md 
-                    shadow-sm text-blue-500 flex justify-center items-center gap-2"
+                           shadow-sm text-blue-500 flex justify-center items-center gap-2"
                         >
                           <span>
                             <BsCart3 />
@@ -249,7 +358,7 @@ const GiftCardSteam = () => {
                     </div>
                   </div>
                   <Scrollbars style={{ height: "50vh" }} autoHide>
-                  <Table
+                    <Table
                       rowSelection={rowSelection}
                       dataSource={dataSource}
                       columns={columns}

@@ -58,8 +58,9 @@ const NavBar = () => {
   return (
     <div
        className="py-4 w-full  flex items-center
-       justify-between fixed lg:sticky top-0 z-40 bg-zinc-50 px-6 lg:px-2
-         "
+       justify-between fixed lg:sticky top-0 z-40  px-6 lg:px-2 bg-gray-50
+       border-b-[1px] border-b-zinc-300
+        "
     >
       <div className="hidden lg:block  w-[30%]">
         <Input

@@ -57,8 +57,9 @@ const CatalogueHeader = () => {
   return (
     <div
      onMouseLeave={() => setActiveIndex(null)} 
-     className='bg-zinc-50 fixed lg:sticky top-[10.30%] z-40 
-     border-y-[1px] border-zinc-300'>
+     className='
+     bg-gray-50 fixed lg:sticky top-[10.30%] z-40 
+     border-b-[1px] border-zinc-300'>
     <ul className='flex items-center gap-10 h-11 relative  lg:px-6 px-2 '>
         {catalogueItems.map((item, index) => (
            <>
@@ -73,7 +74,7 @@ const CatalogueHeader = () => {
             </li>
 
             {item.submenu && activeIndex === index && (
-                    <div className='absolute left-0 top-full w-full bg-zinc-50  px-6
+                    <div className='absolute left-0 top-full w-full bg-gray-50 px-6
                      '>
                         <ul className='w-full  grid grid-cols-1 md:grid-cols-2 
                         lg:grid-cols-4 pb-4 px-2 pt-3'>

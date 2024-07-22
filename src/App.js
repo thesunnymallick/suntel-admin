@@ -8,6 +8,12 @@ import AllProducts from "./pages/AllProducts";
 import { useSelector } from "react-redux";
 import General from "./pages/General";
 import WalletDetailsPage from "./pages/WalletDetailsPage";
+import Cart from "./pages/Cart";
+import CartTest from "./pages/CartTest";
+import ProfilePersonalInfo from "./pages/ProfilePersonalInfo";
+import SecuritySettings from "./pages/SecuritySettings";
+import ProfileNotifications from "./pages/ProfileNotifications";
+import ProfilePayments from "./pages/ProfilePayments";
 const App = () => {
   const {authInfo}=useSelector((state)=>state.login);
   return (
@@ -54,7 +60,62 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        /wallet-details
+         <Route
+          path="/cart"
+          element={
+            <ProtectedRoute authInfo={authInfo}>
+              <Cart/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cartTest"
+          element={
+            <ProtectedRoute authInfo={authInfo}>
+              <CartTest/>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+        path="/profile/personal-info"
+        element={
+          <ProtectedRoute authInfo={authInfo}>
+            <ProfilePersonalInfo/>
+          </ProtectedRoute>
+        }
+        />
+
+
+
+
+      <Route
+        path="/profile/security-settings"
+        element={
+          <ProtectedRoute authInfo={authInfo}>
+            <SecuritySettings/>
+          </ProtectedRoute>
+        }
+        />
+
+       <Route
+        path="/profile/notifications"
+        element={
+          <ProtectedRoute authInfo={authInfo}>
+            <ProfileNotifications/>
+          </ProtectedRoute>
+        }
+        />
+
+       <Route
+        path="/profile/payments"
+        element={
+          <ProtectedRoute authInfo={authInfo}>
+            <ProfilePayments/>
+          </ProtectedRoute>
+        }
+        />
+  
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>

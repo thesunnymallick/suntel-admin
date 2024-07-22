@@ -19,8 +19,8 @@ const AllProducts = () => {
 
         <div className="lg:px-6 block lg:flex  gap-2 px-2">
           <div
-            className="fixed flex items-center  
-          lg:hidden top-[9%]  py-2 z-40 bg-zinc-50 w-full "
+            className="sticky flex items-center  
+            lg:hidden top-[9%]  py-2 z-40 bg-zinc-50 w-full "
           >
             <div className="w-[60%] ml-6">
               <Input
@@ -105,7 +105,7 @@ const AllProducts = () => {
 
               <div
                 className="mt-2 
-                grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-2  "
+                grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2  "
               >
                 {Array.from({ length: 6 }).map((__, index) => {
                   return (
