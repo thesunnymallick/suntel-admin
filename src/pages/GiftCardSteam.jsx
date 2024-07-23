@@ -6,7 +6,7 @@ import netflixImge from "../assets/netflixBg.jpg";
 import { MdOutlineOutlinedFlag } from "react-icons/md";
 import { ImCopy } from "react-icons/im";
 import { BsCart3 } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Scrollbars } from "rc-scrollbars";
 import { useDispatch, useSelector } from "react-redux";
 import { addMultipleToCart, addToCart, updateQuantity } from "../feature/cartSlice";
@@ -16,6 +16,7 @@ const GiftCardSteam = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [rowProducts, setRowProducts]=useState([]);
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const cartItems = useSelector((state) => state.cart.items);
 
   const initialDataSource = [
@@ -215,7 +216,7 @@ const GiftCardSteam = () => {
         const isInCart = cartItems.some((item) => item.key === record.key);
         return isInCart ? (
           <button
-            onClick={() => console.log("Go to Cart")}
+            onClick={() => navigate("/cart")}
             className="w-[98%] h-10 bg-blue-700 rounded-md 
             shadow-sm text-white flex justify-center items-center gap-2"
           >

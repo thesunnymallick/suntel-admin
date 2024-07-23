@@ -61,10 +61,10 @@ const ProfileCard = () => {
                         <Link to={item?.path} 
                           key={index}
                           className={
-                          `flex items-center gap-x-2 text-zinc-700 font-semibold text-lg
+                          `flex items-center gap-x-2   text-base font-semibold
                            py-2  px-4 cursor-pointer hover:bg-blue-100 hover:text-blue-700  hover:border-l-2 hover:border-l-blue-700
                            transition-all duration-300
-                           ${location.pathname===item.path && "bg-blue-100 text-blue-700  border-l-2 border-l-blue-700"}
+                           ${location.pathname===item.path ? "bg-blue-100 text-blue-700  border-l-2 border-l-blue-700" : "text-zinc-700"}
                            `
                           }
                          

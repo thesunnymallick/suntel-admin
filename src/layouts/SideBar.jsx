@@ -113,7 +113,8 @@ const Sidebar = () => {
           </li>
         </div>
 
-        <div className="w-full h-full relative ">
+        <div 
+        className="w-full h-full relative ">
           <ul className="pb-0 px-5 ">
             <Scrollbars style={{ height: "65vh" }} autoHide>
               {menus.map((item, index) => {
@@ -175,7 +176,10 @@ const Sidebar = () => {
           border-t-zinc-300 py-2 pb-4 px-5 sticky bottom-0 z-50 flex flex-col 
            gap-2 "
         >
-          <li className="flex items-center cursor-pointer  gap-2   duration-300 py-2 rounded-md">
+          <li 
+          onClick={()=>navigate("/profile/personal-info")}
+          className="flex items-center cursor-pointer  gap-2   
+          duration-300 py-2 rounded-md">
             <img
               className="w-10 h-10 rounded-sm object-cover"
               src={profile2}

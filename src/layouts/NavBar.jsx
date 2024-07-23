@@ -1,4 +1,4 @@
-import { Avatar, Input } from "antd";
+import { Avatar, Badge, Drawer, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { CiFilter } from "react-icons/ci";
@@ -12,16 +12,21 @@ import { CgMenuRightAlt } from "react-icons/cg";
 import { closeSidebarMenu, openSidebarMenu } from "../feature/menuHandelSlice";
 import { IoMdClose } from "react-icons/io";
 import apiService from "../utils/apiService";
-import {ShimmerButton} from "react-shimmer-effects";
-import {useNavigate} from "react-router-dom"
+import { ShimmerButton } from "react-shimmer-effects";
+import { useNavigate } from "react-router-dom";
+import { BsCart4 } from "react-icons/bs";
+import CartModal from "../components/CartCom/CartModal";
+
 const NavBar = () => {
   const [walletBalnce, setWalletBalnce] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
   // get login info from redux
   const { authInfo } = useSelector((state) => state.login);
   const { sidebarMobileMenu } = useSelector((state) => state.menus);
+  const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handelOpenSidebar = () => {
     dispatch(openSidebarMenu());
@@ -31,7 +36,7 @@ const NavBar = () => {
   };
 
   // fetch wallet balance
-    useEffect(() => {
+  useEffect(() => {
     const getWalletBalance = async () => {
       try {
         setLoading(true);
@@ -47,17 +52,15 @@ const NavBar = () => {
       }
     };
     getWalletBalance();
-    }, []);
+  }, []);
 
   const filterWallet = walletBalnce?.find(
     (wallet) => wallet.currency_name === "EUR"
   );
 
-  
-
   return (
     <div
-       className="py-4 w-full  flex items-center
+      className="py-4 w-full  flex items-center
        justify-between fixed lg:sticky top-0 z-40  px-6 lg:px-2 bg-gray-50
        border-b-[1px] border-b-zinc-300
         "
@@ -117,23 +120,43 @@ const NavBar = () => {
         </span>
       </div> */}
 
-      <div className="">
+      <div className="mr-4">
         <ul className="flex gap-4 items-center">
-          <span className="text-2xl cursor-pointer">
-            <MdZoomOutMap />
-          </span>
           <span className="text-2xl cursor-pointer">
             <IoIosNotificationsOutline />
           </span>
           <span className="text-2xl cursor-pointer">
             <CiSettings />
           </span>
-          <Avatar src={<img src={profile2} alt="avatar" />} />
-          <span className="text-xl">{`
+          <div className="flex items-center gap-2">
+            <Avatar src={<img src={profile2} alt="avatar" />} />
+            <span className="text-lg">
+              <span className="text-zinc-500">Hi,</span>
+              {`
             ${authInfo?.authInfo?.first_name} ${authInfo?.authInfo?.last_name}
-            `}</span>
+            `}
+            </span>
+          </div>
+
+          <div className="ml-4">
+            <span onClick={() => setOpenCart(true)} className="cursor-pointer">
+              <Badge count={items.length} color="blue">
+                <BsCart4 className="text-3xl" />
+              </Badge>
+            </span>
+          </div>
         </ul>
       </div>
+
+      <Drawer
+        title=""
+        onClose={() => setOpenCart(false)}
+        headerStyle={{ display: "none"  }}
+        open={openCart}
+        bodyStyle={{ padding: 0 }} 
+      >
+      <CartModal/> 
+      </Drawer>
     </div>
   );
 };
