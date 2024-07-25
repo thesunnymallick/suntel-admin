@@ -31,7 +31,7 @@ const GiftCardSteam = () => {
     {
       key: "2",
       region: "UK",
-      inStock: 0,
+      inStock: 10,
       price: 100.00,
       quantity: 1,
       totalPrice: 100.00,

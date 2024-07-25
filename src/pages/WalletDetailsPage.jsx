@@ -18,6 +18,10 @@ const WalletDetailsPage = () => {
   const [walletBalanceLoading, setWalletBalanceLoading] = useState(false);
   const [walletDetailsLoading, setWalletDetailsLoading] = useState(false);
 
+  
+
+
+
   useEffect(() => {
     // all wallet balance  deatils
     const allWalletPages = async () => {
@@ -26,6 +30,11 @@ const WalletDetailsPage = () => {
         const { data, status } = await apiService.get(
           `/api/v1/seller-web/show_Wallet`
         );
+
+        const sunny = await apiService.get(
+          `/api/v1/seller-web/show_Wallet`
+        );
+        console.log(sunny)
         if (status === 200) {
           setAllWallets(data?.wallet);
           setWalletBalanceLoading(false);

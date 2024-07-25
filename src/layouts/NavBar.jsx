@@ -155,7 +155,7 @@ const NavBar = () => {
         open={openCart}
         bodyStyle={{ padding: 0 }} 
       >
-      <CartModal/> 
+      <CartModal setOpenCart={setOpenCart}/> 
       </Drawer>
     </div>
   );

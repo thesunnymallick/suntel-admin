@@ -46,12 +46,16 @@ const cartSlice=createSlice({
 
         // update quantity
         updateQuantity:(state, action)=>{
-          const product=action.payload
-          const  findIndex=state.items.findIndex((item)=>item.key===product.key);
+
+          const { key, quantity } = action.payload;
+          const  findIndex=state.items.findIndex((item)=>item.key===key);
+
 
           if(findIndex>=0){
-            console.log("findIndex", product);
-            state.items[findIndex].quantity=product.quantity
+            //console.log("findIndex", product);
+            //state.items[findIndex].quantity+=product.quantity
+            state.items[findIndex].quantity = quantity;
+
             message.success(`You've changed 'Test Product -${state.items[findIndex]?.region}' QUANTITY to
             '${state.items[findIndex].quantity}'`);
               // set product in local storage
