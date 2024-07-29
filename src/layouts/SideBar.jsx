@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -17,17 +16,17 @@ import { GrCatalog } from "react-icons/gr";
 import Scrollbars from "rc-scrollbars";
 import profile2 from "../assets/profile2.png";
 import { IoWalletOutline } from "react-icons/io5";
-import apiService from "../utils/apiService";
 import circleLogo from "../assets/circleLogo.png";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [walletBalnce, setWalletBalnce] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { authInfo } = useSelector((state) => state.login);
+  const { authInfo,  } = useSelector((state) => state.login);
+  const {walletBalance}=authInfo
+  const { sidebarMobileMenu } = useSelector((state) => state.menus)
   const menus = [
     { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
     { name: "Catalogue", link: "/general", icon: GrCatalog },
+    { name: "FontPage", link: "/catalogue", icon: GrCatalog },
     { name: "User", link: "/", icon: AiOutlineUser },
     {
       name: "Gift Card",
@@ -62,34 +61,15 @@ const Sidebar = () => {
   ];
   const [open, setOpen] = useState(true);
   const [subMenuOpen, setSubMenuOpen] = useState(false);
-  const { sidebarMobileMenu } = useSelector((state) => state.menus);
+
+
+  // handel logout
   const logoutHandel = () => {
     dispatch(addLogout());
     navigate("/login");
   };
 
-  // fetch wallet balance
-  useEffect(() => {
-    const getWalletBalance = async () => {
-      try {
-        setLoading(true);
-        const { status, data } = await apiService.get(
-          `/api/v1/seller-web/show_Wallet`
-        );
-        if (status === 200) {
-          setWalletBalnce(data?.wallet);
-          setLoading(false);
-        }
-      } catch (error) {
-        setLoading(false);
-      }
-    };
-    getWalletBalance();
-  }, []);
 
-  const filterWallet = walletBalnce?.find(
-    (wallet) => wallet.currency_name === "EUR"
-  );
 
   return (
     <>
@@ -209,8 +189,8 @@ const Sidebar = () => {
             </span>
             {open && (
               <span className="text-base font-medium flex-1">
-                {`${filterWallet?.currency_name || ""} ${
-                  filterWallet?.balance || ""
+                {`${walletBalance?.currency_name || ""} ${
+                  walletBalance?.balance || ""
                 }`}
               </span>
             )}

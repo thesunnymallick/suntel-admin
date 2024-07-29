@@ -1,123 +1,145 @@
+// ********* PACKAGE IMPORT *********
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import GiftCardSteam from "./pages/GiftCardSteam";
-import Login from "./pages/Login";
-import ProtectedRoute from "./config/ProtectedRoute";
-import AllProducts from "./pages/AllProducts";
 import { useSelector } from "react-redux";
-import General from "./pages/General";
-import WalletDetailsPage from "./pages/WalletDetailsPage";
-import Cart from "./pages/Cart";
-import CartTest from "./pages/CartTest";
-import ProfilePersonalInfo from "./pages/ProfilePersonalInfo";
-import SecuritySettings from "./pages/SecuritySettings";
-import ProfileNotifications from "./pages/ProfileNotifications";
-import ProfilePayments from "./pages/ProfilePayments";
+
+// ********* FILE IMPORT *********
+import Dashboard from "./pages/dashboard/Dashboard";
+import ProductInfo from "./pages/product/ProductInfo";
+import Login from "./pages/auth/Login";
+import ProtectedRoute from "./config/ProtectedRoute";
+import AllProducts from "./pages/product/AllProducts";
+import Catalogue from "./pages/catalogue/Catalogue";
+import Cart from "./pages/cart/Cart";
+import ProfilePersonalInfo from "./pages/profile/ProfilePersonalInfo";
+import SecuritySettings from "./pages/profile/SecuritySettings";
+import ProfileNotifications from "./pages/profile/ProfileNotifications";
+import ProfilePayments from "./pages/profile/ProfilePayments";
+import FontPage from "./pages/FontPage";
+import WalletDetailsPage from "./pages/wallet/WalletDetailsPage";
+import RootLayout from "./layouts/RootLayout";
 const App = () => {
-  const {authInfo}=useSelector((state)=>state.login);
+  const { authInfo } = useSelector((state) => state.login);
   return (
     <BrowserRouter>
+      {/* <RootLayout> */}
       <Routes>
-        <Route
-          path="/"
-          element={
-
-              <Dashboard />
+      {/* Routes with Header and Sidebar */}
+    
+        <Route path="/" element={
+          <RootLayout>
+             <Dashboard />
+          </RootLayout>
+        
+          } />
+        <Route path="/catalogue" element={
+          <RootLayout>
+           <FontPage />
+          </RootLayout>
+       
+        } />
+        <Route path="/general" element={
+          <RootLayout>
+            <Catalogue />
+          </RootLayout>
          
-          }
-        />
-        <Route
-          path="/general"
-          element={
-
-              <General/>
-         
-          }
-        />
+          } />
         <Route
           path="/giftCard/steam/:id"
           element={
-            <ProtectedRoute authInfo={authInfo}>
-              <GiftCardSteam />
+            <RootLayout>
+               <ProtectedRoute authInfo={authInfo}>
+              <ProductInfo />
             </ProtectedRoute>
+            </RootLayout>
+           
           }
         />
 
         <Route
           path="/products"
           element={
-            <ProtectedRoute authInfo={authInfo}>
-              <AllProducts/>
+          <RootLayout>
+              <ProtectedRoute authInfo={authInfo}>
+              <AllProducts />
             </ProtectedRoute>
+          </RootLayout>
           }
         />
-          <Route
+        <Route
           path="/wallet-details"
           element={
-            <ProtectedRoute authInfo={authInfo}>
-              <WalletDetailsPage/>
+          <RootLayout>
+              <ProtectedRoute authInfo={authInfo}>
+              <WalletDetailsPage />
             </ProtectedRoute>
+          </RootLayout>
           }
         />
-         <Route
+        <Route
           path="/cart"
           element={
-            <ProtectedRoute authInfo={authInfo}>
-              <Cart/>
+           <RootLayout>
+             <ProtectedRoute authInfo={authInfo}>
+              <Cart />
             </ProtectedRoute>
+           </RootLayout>
           }
         />
+
         <Route
-          path="/cartTest"
+          path="/profile/personal-info"
           element={
-            <ProtectedRoute authInfo={authInfo}>
-              <CartTest/>
+           <RootLayout>
+             <ProtectedRoute authInfo={authInfo}>
+              <ProfilePersonalInfo />
             </ProtectedRoute>
+           </RootLayout>
           }
         />
 
         <Route
-        path="/profile/personal-info"
-        element={
-          <ProtectedRoute authInfo={authInfo}>
-            <ProfilePersonalInfo/>
-          </ProtectedRoute>
-        }
+          path="/profile/security-settings"
+          element={
+            <RootLayout>
+              <ProtectedRoute authInfo={authInfo}>
+              <SecuritySettings />
+            </ProtectedRoute>
+            </RootLayout>
+          }
         />
 
-
-
-
-      <Route
-        path="/profile/security-settings"
-        element={
-          <ProtectedRoute authInfo={authInfo}>
-            <SecuritySettings/>
-          </ProtectedRoute>
-        }
+        <Route
+          path="/profile/notifications"
+          element={
+            <RootLayout>
+              <ProtectedRoute authInfo={authInfo}>
+              <ProfileNotifications />
+            </ProtectedRoute>
+            </RootLayout>
+          }
         />
 
-       <Route
-        path="/profile/notifications"
-        element={
-          <ProtectedRoute authInfo={authInfo}>
-            <ProfileNotifications/>
-          </ProtectedRoute>
-        }
+        <Route
+          path="/profile/payments"
+          element={
+           <RootLayout>
+             <ProtectedRoute authInfo={authInfo}>
+              <ProfilePayments />
+            </ProtectedRoute>
+           </RootLayout>
+          }
         />
 
-       <Route
-        path="/profile/payments"
-        element={
-          <ProtectedRoute authInfo={authInfo}>
-            <ProfilePayments/>
-          </ProtectedRoute>
-        }
-        />
-  
-        <Route path="/login" element={<Login />} />
+        <Route 
+         path="/login" element={
+          <RootLayout showHeader={false} showSidebar={false}>
+            <Login/>
+          </RootLayout>
+         }  /> 
+       
       </Routes>
+      {/* </RootLayout> */}
     </BrowserRouter>
   );
 };

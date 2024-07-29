@@ -8,6 +8,7 @@ const authInfo = localStorage.getItem("loginInfo")
       authToken: null,
       isAuth: false,
       authInfo: null,
+      walletBalance:"00.00" || null,
     };
 
 // login slice 
@@ -31,11 +32,24 @@ export const addLoginSlice = createSlice({
       state.authInfo.isAuth=false;
       state.authInfo.authToken=null;
       Cookies.remove('token'); 
+    },
 
+    addWalletBalance:(state, action)=>{
+      const wallet=action.payload;
+      const filterWallet = wallet?.find(
+      (wallet) => wallet.currency_name === "EUR"
+      );
+
+      if(filterWallet){
+        state.authInfo.walletBalance=filterWallet;
+        localStorage.setItem("loginInfo", JSON.stringify(state.authInfo))
+      }
 
     },
+
+
   },
 });
 
-export const { addLogin, addLogout } = addLoginSlice.actions;
+export const { addLogin, addLogout, addWalletBalance } = addLoginSlice.actions;
 export default addLoginSlice.reducer;

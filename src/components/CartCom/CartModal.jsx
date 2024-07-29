@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import netflixImge from "../../assets/netflixBg.jpg";
@@ -18,7 +18,7 @@ const CartModal = ({setOpenCart}) => {
     }, [items, dispatch]);
   return (
     <div className='px-3 py-4 relative h-screen overflow-x-hidden'>
-       <div className='flex justify-between items-center  py-3 px-2'>
+       <div className='flex justify-between items-center  py-3 px-2 sticky -top-5 bg-white z-50'>
         <h2 className='text-xl text-zinc-800 font-semibold flex items-center gap-1'>
            <span onClick={()=>setOpenCart(false)} className='text-3xl mr-4 cursor-pointer'>< MdKeyboardBackspace/></span>
            <span>My Cart </span>  
@@ -26,8 +26,8 @@ const CartModal = ({setOpenCart}) => {
         </h2>
         <Link to="/cart" className='text-base font-semibold text-blue-700 hover:text-blue-800'>View Cart</Link>
        </div>
-
-       <div className='shadow-sm rounded-md bg-white mt-2'>
+       
+       <div className='shadow-sm rounded-md bg-white mt-2 max-h-[70vh] overflow-y-auto custom-scrollbar'>
          {
           items?.map((item)=>{
             return (
@@ -35,8 +35,13 @@ const CartModal = ({setOpenCart}) => {
             )
           })
          }
+         
 
-         <div className='flex  justify-end py-4  '>
+       
+
+       </div>
+ 
+        <div className='flex  justify-end py-4  '>
           <div className='flex items-center justify-between  w-[55%] px-2'>
             <span className='text-lg text-blue-600 flex items-center  gap-1'>
               <span>Subtotal </span>
@@ -45,10 +50,7 @@ const CartModal = ({setOpenCart}) => {
             <span className='text-lg text-blue-800 font-semibold '>{`$${cartTotalAmmount}`}</span>
           </div>
          </div>
-
-       </div>
-
-       <div className='mt-6 w-[100%] flex justify-center'>
+       <div className='mt-2 w-[100%] flex justify-center'>
         <button className='w-[80%] h-10 bg-blue-700 text-white text-base hover:bg-blue-800 transition-all duration-300
          font-semibold '>CheckOut</button>
        </div>

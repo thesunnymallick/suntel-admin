@@ -1,32 +1,26 @@
 import { Avatar, Badge, Drawer, Input } from "antd";
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { CiFilter } from "react-icons/ci";
-import { MdZoomOutMap } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { CiSettings } from "react-icons/ci";
 import profile2 from "../assets/profile2.png";
 import { useDispatch, useSelector } from "react-redux";
-import { CiWallet } from "react-icons/ci";
 import { CgMenuRightAlt } from "react-icons/cg";
-import { closeSidebarMenu, openSidebarMenu } from "../feature/menuHandelSlice";
 import { IoMdClose } from "react-icons/io";
-import apiService from "../utils/apiService";
-import { ShimmerButton } from "react-shimmer-effects";
-import { useNavigate } from "react-router-dom";
 import { BsCart4 } from "react-icons/bs";
+import { closeSidebarMenu, openSidebarMenu } from "../feature/menuHandelSlice";
 import CartModal from "../components/CartCom/CartModal";
 
 const NavBar = () => {
-  const [walletBalnce, setWalletBalnce] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   // get login info from redux
   const { authInfo } = useSelector((state) => state.login);
   const { sidebarMobileMenu } = useSelector((state) => state.menus);
   const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
 
   const handelOpenSidebar = () => {
     dispatch(openSidebarMenu());
@@ -35,28 +29,9 @@ const NavBar = () => {
     dispatch(closeSidebarMenu());
   };
 
-  // fetch wallet balance
-  useEffect(() => {
-    const getWalletBalance = async () => {
-      try {
-        setLoading(true);
-        const { status, data } = await apiService.get(
-          `/api/v1/seller-web/show_Wallet`
-        );
-        if (status === 200) {
-          setWalletBalnce(data?.wallet);
-          setLoading(false);
-        }
-      } catch (error) {
-        setLoading(false);
-      }
-    };
-    getWalletBalance();
-  }, []);
 
-  const filterWallet = walletBalnce?.find(
-    (wallet) => wallet.currency_name === "EUR"
-  );
+
+
 
   return (
     <div
@@ -140,7 +115,7 @@ const NavBar = () => {
 
           <div className="ml-4">
             <span onClick={() => setOpenCart(true)} className="cursor-pointer">
-              <Badge count={items.length} color="blue">
+              <Badge count={items?.length} color="blue">
                 <BsCart4 className="text-3xl" />
               </Badge>
             </span>

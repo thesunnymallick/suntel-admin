@@ -1,34 +1,46 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../layouts/SideBar";
-import NavBar from "../layouts/NavBar";
-import CardItem from "../components/dashboardCom/CardItem";
-
-import netflixImge from "../assets/netflixBg.jpg";
-import CardLoading from "../ShimmerLoading/CardLoading";
+import React, { useEffect } from "react";
+import CardItem from "../../components/dashboardCom/CardItem";
+import netflixImge from "../../assets/netflixBg.jpg";
+import CardLoading from "../../ShimmerLoading/CardLoading";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProducts } from "../feature/productsSlice";
-import CatalogueHeader from "../layouts/CatalogueHeader";
-const General = () => {
-  const dispatch=useDispatch();
-  const {products, isLoading}=useSelector((state)=>state.products);
+import { fetchAllProducts } from "../../feature/productsSlice";
+import { addWalletBalance } from "../../feature/addLoginSlice";
+import { getWalletBalance } from "../../api/walletApi";
 
-  useEffect(()=>{
-    if(products.length===0){
-      dispatch(fetchAllProducts())
+const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { products, isLoading } = useSelector((state) => state.products);
+
+  // fetch all products from redux
+  useEffect(() => {
+    if (products?.length === 0) {
+      dispatch(fetchAllProducts());
     }
-   
-  }, [dispatch, products])
+  }, [dispatch, products]);
+
+
+  // add wallet balance in redux store
+    useEffect(() => {
+      const walletBalance = async () => {
+        try {
+          const { status, data } = await getWalletBalance();
+          if (status === 200) {
+            dispatch(addWalletBalance(data?.wallet));
+          }
+        } catch (error) {
+         console.log(error);
+        }
+      };
+      walletBalance();
+    }, [dispatch]);
+  
+  
 
   return (
-    <section className="flex gap-0 bg-zinc-50">
-      <Sidebar />
-      <div className="flex-1 ">
-        <NavBar />
-        <CatalogueHeader/>
-
-        {isLoading !== true ? (
+    <div>
+      {isLoading !== true ? (
           <>
-            <div className="px-6 mt-4">
+            <div className="px-6">
               <h1 className="text-zinc-700 font-medium">
                 Newest product added
               </h1>
@@ -79,11 +91,8 @@ const General = () => {
         ) : (
           <CardLoading />
         )}
-      </div>
-    </section>
+    </div>
   );
 };
 
-export default General;
-
-
+export default Dashboard;

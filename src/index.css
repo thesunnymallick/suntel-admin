@@ -8,9 +8,27 @@
   .required-label::after {
     content: ' *';
     color: red;
+   
   }
 
   .blur-background-effect{
     backdrop-filter: blur(70px);
     background: hsla(240, 5%, 96%, .8);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }

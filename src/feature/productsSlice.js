@@ -32,9 +32,7 @@ const productSlice=createSlice({
     builder.addCase(fetchAllProducts.pending, (state, action)=>{
      state.isLoading=true
     })
-
-  
-
+    
     // when api call success
     builder.addCase(fetchAllProducts.fulfilled, (state, action)=>{
      state.isLoading=false;

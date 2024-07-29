@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import Sidebar from "../layouts/SideBar";
-import NavBar from "../layouts/NavBar";
-import CardItem from "../components/dashboardCom/CardItem";
-import netflixImge from "../assets/netflixBg.jpg";
+import CardItem from "../../components/dashboardCom/CardItem";
+import netflixImge from "../../assets/netflixBg.jpg";
 import { Button, Input, Modal, Select } from "antd";
 import { FiSearch } from "react-icons/fi";
 import { CiFilter } from "react-icons/ci";
@@ -10,14 +8,9 @@ import { CiFilter } from "react-icons/ci";
 const { Search } = Input;
 const AllProducts = () => {
   const [showModal, setShowModal] = useState(false);
-
   return (
-    <section className="flex  bg-zinc-50">
-      <Sidebar />
-      <div className="flex-1 ">
-        <NavBar />
-
-        <div className="lg:px-6 block lg:flex  gap-2 px-2">
+  <>
+   <div className="lg:px-6 block lg:flex  gap-2 px-2">
           <div
             className="sticky flex items-center  
             lg:hidden top-[9%]  py-2 z-40 bg-zinc-50 w-full "
@@ -246,8 +239,7 @@ const AllProducts = () => {
             </div>
           </div>
         </Modal>
-      </div>
-    </section>
+  </>
   );
 };
 

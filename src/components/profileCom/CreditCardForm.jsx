@@ -1,6 +1,6 @@
 import React from 'react'
 import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
-// import 'react-payment-inputs/lib/react-payment-inputs.css';
+
 const CreditCardForm = () => {
   const { getCardNumberProps, getExpiryDateProps, getCVCProps, getCardImageProps, wrapperProps } = usePaymentInputs();
   return (
